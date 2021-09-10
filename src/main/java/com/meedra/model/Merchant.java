@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "merchant")
 public class Merchant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +32,18 @@ public class Merchant implements Serializable {
     @Column(updatable = false, nullable = false,length = 32)
     private UUID merchantId;
 
+    @Column(nullable = false, unique = true)
+    private String merchantName;
+
+    @Column(nullable = false)
+    private String merchantLocation;
+
     @Column( nullable = false, updatable = false)
     @CreatedDate
-    private long createdDate;
+    private Date createdDate;
 
     @LastModifiedDate
-    private long modifiedDate;
+    private Date modifiedDate;
 
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;

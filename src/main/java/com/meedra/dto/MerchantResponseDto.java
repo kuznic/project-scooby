@@ -7,14 +7,26 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.util.UUID;
+
 @Data
 @Slf4j
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MerchantDto {
+public class MerchantResponseDto {
+    @JsonProperty(value="merchantId")
+    private UUID merchantId;;
+
     @JsonProperty(value = "merchantName")
     private String merchantName;
 
     @JsonProperty(value = "merchantLocation")
     private String merchantLocation;
+
+    @JsonProperty(value = "createdDate")
+    private Date createdDate;
+
+    @JsonProperty(value = "modifiedDate")
+    private Date modifiedDate;
 }
