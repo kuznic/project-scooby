@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Slf4j
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MerchantResponseDto {
+public class MerchantResponseDto implements Serializable {
     @JsonProperty(value="merchantId")
     private UUID merchantId;;
 

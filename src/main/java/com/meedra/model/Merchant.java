@@ -1,6 +1,9 @@
 package com.meedra.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -9,7 +12,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,8 +22,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "merchant")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Merchant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
