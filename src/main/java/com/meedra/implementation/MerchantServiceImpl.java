@@ -1,6 +1,5 @@
 package com.meedra.implementation;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.meedra.dto.MerchantDto;
 import com.meedra.dto.MerchantResponseDto;
 import com.meedra.model.Merchant;
@@ -11,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -22,16 +19,12 @@ import java.util.Date;
 import java.util.UUID;
 
 
-
 @Component
 @Slf4j
 public class MerchantServiceImpl implements MerchantService {
 
     @Autowired
     MerchantRepository merchantRepo;
-
-    @Autowired
-    private CacheManager cacheManager;
 
 
     @Autowired
