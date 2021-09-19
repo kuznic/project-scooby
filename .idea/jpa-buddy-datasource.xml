@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="a9d10a33-9741-4cdf-83d4-607dbe72d342" name="project-scooby" url="jdbc:postgresql://localhost/scooby" driverClass="org.postgresql.Driver" />
+    </data-sources>
+    <data-source-infos>
+      <data-source-info id="" persistence-unit-name="test" />
+    </data-source-infos>
+  </component>
+</project>

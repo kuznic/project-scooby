@@ -25,6 +25,7 @@ public class MerchantController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public MerchantResponseDto createMerchant(@Validated @RequestBody MerchantDto merchant) throws HttpClientErrorException.BadRequest
     {
+
         return merchantService.createMerchant(merchant);
 
     }

@@ -1,18 +1,17 @@
 package com.meedra.model;
 
+import com.meedra.listeners.MerchantListener;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,16 +21,18 @@ import java.util.UUID;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@EntityListeners(MerchantListener.class)
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Merchant implements Serializable {
+public class Merchant extends AbstractAuditingEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Type(type = "org.hibernate.type.PostgresUUIDType")
-    @Column(updatable = false, nullable = false,length = 32)
-    private UUID merchantId;
+
+    @Type(type = "uuid-binary")
+    @Column(updatable = false, nullable = false, length = 32)
+    private UUID merchantId = UUID.randomUUID();
 
     @Column(nullable = false, unique = true)
     private String merchantName;
@@ -39,19 +40,10 @@ public class Merchant implements Serializable {
     @Column(nullable = false)
     private String merchantLocation;
 
-    @Column( nullable = false, updatable = false)
-    @CreatedDate
-    private Date createdDate;
-
-    @LastModifiedDate
-    private Date modifiedDate;
-
     @Column(columnDefinition = "boolean default false")
-    private boolean isDeleted;
+    private boolean deleted;
 
 
-
-    private static final long serialVersionUID = -3320591172411604329L;
 
     @Override
     public boolean equals(Object o) {
@@ -65,4 +57,7 @@ public class Merchant implements Serializable {
     public int hashCode() {
         return 0;
     }
+
+
+
 }

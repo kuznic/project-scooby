@@ -14,8 +14,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -35,8 +33,7 @@ public class MerchantServiceImpl implements MerchantService {
     public MerchantResponseDto createMerchant(MerchantDto merchant) {
         var newMerchant = new Merchant();
         BeanUtils.copyProperties(merchant, newMerchant);
-        newMerchant.setMerchantId(UUID.randomUUID());
-        newMerchant.setCreatedDate(Date.from(Instant.now()));
+        //newMerchant.setMerchantId(UUID.randomUUID());
         newMerchant = merchantRepo.save(newMerchant);
 
         BeanUtils.copyProperties(newMerchant, merchantResponse);
@@ -56,7 +53,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     @Cacheable(value = "merchantCache", key = "#merchantId")
     public MerchantResponseDto getMerchant(UUID merchantId) throws NotFoundException {
-        var retrievedMerchant = merchantRepo.findByMerchantIdAndIsDeletedFalse(merchantId);
+        var retrievedMerchant = merchantRepo.findByMerchantId(merchantId);
         if (retrievedMerchant.isPresent())
         {
             BeanUtils.copyProperties(retrievedMerchant.get(), merchantResponse);
